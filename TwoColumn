@@ -1,0 +1,43 @@
+package cicle;
+
+import java.util.Scanner;
+
+
+
+public class TwoColumn {
+
+	
+	public static void main(String[] args) {
+	
+		int sumFirstColumn=0;
+		int sumSecondColumn=0;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter how many numbers do you want to have in a column: ");
+		int numOfNum= sc.nextInt();
+		
+		for(int i=0;i<numOfNum;i++){
+			System.out.println("Enter a first column number:");
+			int firstColunmNum=sc.nextInt();
+			sumFirstColumn =sumFirstColumn+firstColunmNum;
+		}
+		for(int i=0;i<numOfNum;i++){
+			System.out.println("Enter a second column number:");
+			int secondColunmNum=sc.nextInt();
+			sumSecondColumn =sumSecondColumn+secondColunmNum;
+		}
+		if(sumFirstColumn==sumSecondColumn){
+			System.out.println("Yes sum is: "+sumFirstColumn);
+		}
+		else {
+			if(sumFirstColumn>sumSecondColumn){
+				System.out.println("No diff is: "+(sumFirstColumn-sumSecondColumn));
+			}
+			else {
+				System.out.println("No diff is: "+ (sumSecondColumn+sumFirstColumn));
+			}
+		}
+
+	}
+
+}
+

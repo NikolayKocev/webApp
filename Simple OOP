@@ -1,0 +1,104 @@
+package cicle;
+
+public abstract class Human {
+	int years;
+	int hight;
+	int weight;
+	public int getYears() {
+		return years;
+	}
+	public void setYears(int years) {
+		this.years = years;
+	}
+	public int getHight() {
+		return hight;
+	}
+	public void setHight(int hight) {
+		this.hight = hight;
+	}
+	public int getWeight() {
+		return weight;
+	}
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package cicle;
+
+public class Bulgarian extends Human {
+	String nationality = new String("Bulgarian");
+	String name= new String();
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void name(String name) {
+		this.name= name;
+	}
+ 
+	public int getYears() {
+		// TODO Auto-generated method stub
+		return super.getYears();
+	}
+
+	public void setYears(int years) {
+		// TODO Auto-generated method stub
+		super.setYears(years);
+	}
+
+	public int getHight() {
+		// TODO Auto-generated method stub
+		return super.getHight();
+	}
+
+	public void setHight(int hight) {
+		// TODO Auto-generated method stub
+		super.setHight(hight);
+	}
+
+	public int getWeight() {
+		// TODO Auto-generated method stub
+		return super.getWeight();
+	}
+
+	public void setWeight(int weight) {
+		// TODO Auto-generated method stub
+		super.setWeight(weight);
+	}
+	
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+package cicle;
+
+import java.util.Scanner;
+
+public class Test {
+
+	
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		Bulgarian human = new Bulgarian();
+		human.name("mitko");
+		System.out.println("enter age");
+		human.setYears(sc.nextInt());
+		System.out.println("Enter hight");
+		human.setHight(sc.nextInt());
+		System.out.println("Enter weight");
+		human.setWeight(sc.nextInt());
+		
+		System.out.println(human.getName()+" "+ human.getYears()+" "+human.getWeight()+" "+human.getHight());
+
+	}
+
+}
+
+
+

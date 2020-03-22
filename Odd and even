@@ -1,0 +1,39 @@
+package cicle;
+
+import java.util.Scanner;
+
+public class Odd_even {
+
+	
+	public static void main(String[] args) {
+		int sumOddColumn=0;
+		int sumEvenColumn=0;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter how many numbers do you want to have: ");
+		int numOfNum= sc.nextInt();
+		for(int i=0;i<numOfNum;i++){
+			if ((i%2)==0){
+				System.out.println("Enter a number:");
+				int oddNum=sc.nextInt();
+				sumOddColumn =sumOddColumn+oddNum;
+				}
+			else{
+				System.out.println("Enter a number:");
+				int evenNum=sc.nextInt();
+				sumEvenColumn =sumEvenColumn+evenNum;
+			}
+			}	
+		if(sumOddColumn==sumEvenColumn){
+			System.out.println("Yes sum is: "+sumOddColumn);
+		}
+		else {
+			if(sumOddColumn>sumEvenColumn){
+				System.out.println("No diff is: "+(sumOddColumn-sumEvenColumn));
+			}
+			else {
+				System.out.println("No diff is: "+ (sumEvenColumn+sumOddColumn));
+			}
+		}
+	}
+}
+

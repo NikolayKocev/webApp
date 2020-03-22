@@ -1,0 +1,37 @@
+package cicle;
+
+import java.util.Scanner;
+
+public class Clever_Lily {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter Age of Lily:");
+		int lilyAge= sc.nextInt();
+		System.out.println("enter how mutch is a washing mashine:");
+		int washingMashinePrice= sc.nextInt();
+		System.out.println("Ener price for a single toy:");
+		int toyPrice= sc.nextInt();
+		int lilyMoney=0;
+		int evenBirthdate=0;
+		int oddBirthdate=0;
+		for (int i=1;i<lilyAge;i++){
+			if (i%2== 1)evenBirthdate++;
+			else {
+				oddBirthdate= oddBirthdate+9;
+				lilyMoney= lilyMoney + oddBirthdate; 
+			}
+		}
+		lilyMoney=lilyMoney + (evenBirthdate*toyPrice);
+		if(lilyMoney>=washingMashinePrice)
+			System.out.println("Yes "+ (lilyMoney-washingMashinePrice));
+		else 
+			System.out.println("No, Lily need to have more "+ (washingMashinePrice-lilyMoney));
+		
+	}
+
+}
+

@@ -1,0 +1,57 @@
+package cicle;
+
+import java.util.Scanner;
+
+public class Task2 {
+
+	
+	public static void main(String[] args) {
+		System.out.println("Enter how many number you want to compare:" );
+		Scanner sc = new Scanner(System.in);
+		double numOfNum = sc.nextDouble();
+		double oddSum=0;
+		double oddMax=0;
+		double oddMin=0;
+		double evenSum=0;
+		double evenMax=0;
+		double evenMin=0;
+		for (int i=0;i<numOfNum;i++){
+			System.out.println("Enter a number: ");
+			double nextNum= sc.nextDouble();
+			if(i==0){
+				oddMax=nextNum;
+				oddMin=nextNum;
+			}
+			if(i==1){
+				evenMax=nextNum;
+				evenMin=nextNum;
+			}
+			if ((i%2)==0){
+				oddSum=oddSum+nextNum;
+				if(nextNum>oddMax){
+					oddMax=nextNum;
+				}
+				if(nextNum<oddMin){
+					oddMin=nextNum;
+				}
+			}
+			else{
+				evenSum=evenSum+nextNum;
+				if(nextNum>evenMax){
+					evenMax=nextNum;
+				}
+				if(nextNum<evenMin){
+					evenMin=nextNum;
+				}
+			}
+		}
+		System.out.println("Odd sum is: "+oddSum);
+		System.out.println("Odd min is: "+oddMin);
+		System.out.println("Odd max is: "+oddMax);
+		System.out.println("Even sum is: "+evenSum);
+		System.out.println("Even min is: "+evenMin);
+		System.out.println("Even max is: "+evenMax);
+	}
+
+}
+

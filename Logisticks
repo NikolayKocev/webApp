@@ -1,0 +1,49 @@
+package cicle;
+
+import java.util.Scanner;
+
+public class Logisticks {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter tne number of nubers");
+		int number= sc.nextInt();
+	    float[] numbers= new float[number];
+	    float p1=0;
+	    float p2=0;
+	    float p3=0;
+	    float tone=0;
+	    int busTone=0;
+	    int trailerTone=0;
+	    int trainTone=0;
+	    float midPriceForTone=0;
+	    for (int i = 0;i<number; i++){
+	    	System.out.println("Enter "+(i+1)+" number:");
+	    	numbers[i]=sc.nextInt();
+	    	if (numbers[i]/3<=1.0){
+	    		p1++;
+	    		busTone+=numbers[i];
+	    	}
+	    	if((numbers[i]/3>1.0)&&(numbers[i]/11<1)){
+	    		p2++;
+	    		trailerTone+=numbers[i];	    	}
+	    	if(numbers[i]/11>=1){
+	    		p3++;
+	    		trainTone+=numbers[i];
+	    	}
+	    	tone+=numbers[i];
+	    }
+	    midPriceForTone=(200*busTone + 175*trailerTone + 120*trainTone)/tone;
+	    p1=busTone*100/tone;
+	    p2=trailerTone*100/tone;
+	    p3=trainTone*100/tone;
+	    System.out.println(midPriceForTone);
+	    System.out.println(p1);
+	    System.out.println(p2);
+	    System.out.println(p3);
+	}
+}
+

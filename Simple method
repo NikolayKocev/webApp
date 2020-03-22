@@ -1,0 +1,19 @@
+package cicle;
+
+public class SimpleMethod {
+	  public static void main (String[] args) {
+	        String sent = "Hello";
+	        String resive = myFunction (sent);
+
+            System.out.println(resive);
+     }
+public static String myFunction(String sent)
+{
+    if (sent.isEmpty())
+        return sent;
+    return myFunction(sent.substring(1)) + sent.charAt(0);
+}
+}
+
+
+

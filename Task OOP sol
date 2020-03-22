@@ -1,0 +1,688 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public abstract class Vehicle {
+	
+	private final String model;
+	private final int manufactureYear;
+	private Vignette vignette;
+	
+	protected Vehicle(String model, int manufactureYear) {
+		this.model = model;
+		this.manufactureYear = manufactureYear; 
+	}
+	
+	public void setVignette(Vignette vignette) {
+		this.vignette = vignette;
+		vignette.putOnGlass();
+	}
+	
+	public Vignette getVignette() {
+		return vignette;
+	}
+	
+	public String getModel() {
+		return model;
+	}
+	
+	public int getManufactureYear() {
+		return manufactureYear;
+	}
+	
+	public abstract VehicleType getVehicleType();
+
+	@Override
+	public String toString() {
+		return "Vehicle [model=" + model + ", manufactureYear=" + manufactureYear + ", vignette=" + vignette
+				+ ", vehicleType=" + getVehicleType() + "]";
+	}
+	
+	
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class Car extends Vehicle {
+
+	public Car(String model, int manufactureYear) {
+		super(model, manufactureYear);
+	}
+
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.CAR;
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class Bus extends Vehicle {
+
+	public Bus(String model, int manufactureYear) {
+		super(model, manufactureYear);
+	}
+
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.BUS;
+	}
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class Truck extends Vehicle {
+
+	public Truck(String model, int manufactureYear) {
+		super(model, manufactureYear);
+	}
+
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.TRUCK;
+	}
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public abstract class Vignette {
+	
+	public static enum Validity {
+		VALIDITY_DAY,
+		VALIDITY_MONTH,
+		VALIDITY_YEAR
+	};
+
+	private SimpleDate startDate;
+	private final Validity validityType;
+	
+	protected Vignette(Validity validityType) {
+		this.validityType = validityType;
+	}
+	
+	public void setStartDate(SimpleDate startDate) {
+		this.startDate = startDate;
+	}
+	
+	public SimpleDate getStartDate() {
+		return startDate;
+	}
+	
+	public Validity getValidityType() {
+		return validityType;
+	}
+	
+	public float getPrice() {
+		switch (validityType) {
+			case VALIDITY_DAY:
+				return getPriceForDay();
+			case VALIDITY_MONTH:
+				return getPriceForDay() * 10;
+			case VALIDITY_YEAR:
+				return getPriceForDay() * 10 * 6;
+			default:
+				return -1;
+		}
+	}
+	
+	public boolean isValid() {
+		return isValid(new SimpleDate());
+	}
+	
+	public boolean isValid(SimpleDate date) {
+		return startDate != null &&
+				startDate.isBefore(date) &&
+				date.isBefore(startDate.getEndDate(validityType));
+	}
+	
+	protected abstract float getPriceForDay();
+	
+	public abstract String getColor();
+	public abstract VehicleType getVehicleType();
+	public abstract int putOnGlass();
+	
+	@Override
+	public String toString() {
+		return "Vignette [startDate=" + startDate + ", validityType=" + validityType + ", price=" + getPrice()
+				+ ", color=" + getColor() + ", vehicleType=" + getVehicleType() + "]";
+	}
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class CarVignette extends Vignette {
+	
+	public static final String CAR_VIGNETTE_COLOR = "green";
+
+	public CarVignette(Validity validityType) {
+		super(validityType);
+	}
+	
+	@Override
+	protected float getPriceForDay() {
+		return 5.0f;
+	}
+	
+	@Override
+	public int putOnGlass() {
+		return 5;
+	}
+	
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.CAR;
+	}
+
+	@Override
+	public String getColor() {
+		return CAR_VIGNETTE_COLOR;
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class BusVignette extends Vignette {
+	
+	public static final String BUS_VIGNETTE_COLOR = "blue";
+
+	public BusVignette(Validity validityType) {
+		super(validityType);
+	}
+	
+	@Override
+	protected float getPriceForDay() {
+		return 9.0f;
+	}
+	
+	@Override
+	public int putOnGlass() {
+		return 20;
+	}
+	
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.BUS;
+	}
+
+	@Override
+	public String getColor() {
+		return BUS_VIGNETTE_COLOR;
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public class TruckVignette extends Vignette {
+	
+	public static final String TRUCK_VIGNETTE_COLOR = "yellow";
+
+	public TruckVignette(Validity validityType) {
+		super(validityType);
+	}
+	
+	@Override
+	protected float getPriceForDay() {
+		return 7.0f;
+	}
+	
+	@Override
+	public int putOnGlass() {
+		return 10;
+	}
+	
+	@Override
+	public VehicleType getVehicleType() {
+		return VehicleType.TRUCK;
+	}
+
+	@Override
+	public String getColor() {
+		return TRUCK_VIGNETTE_COLOR;
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+public enum VehicleType {
+	CAR,
+	BUS,
+	TRUCK
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import homework.Vignette.Validity;
+
+public class SimpleDate {
+	
+private final Calendar calendar;
+	
+	private final int day;
+	private final int month;
+	private final int year;
+	
+	public SimpleDate() {
+		this(new GregorianCalendar());
+	}
+	
+	public SimpleDate(Calendar calendar) {
+		this.calendar = calendar;
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		
+		this.day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
+		this.month = calendar.get(Calendar.MONTH);
+		this.year = calendar.get(Calendar.YEAR);
+	}
+	
+	public SimpleDate(int day, int month, int year) {
+		this.calendar = new GregorianCalendar();
+		this.calendar.set(year, month, day + 1, 0, 0, 0);
+		
+		this.day = day;
+		this.month = month;
+		this.year = year;
+	}
+	
+	public int getDay() {
+		return day;
+	}
+	
+	public int getMonth() {
+		return month;
+	}
+	
+	public int getYear() {
+		return year;
+	}
+	
+	public SimpleDate getEndDate(Validity validity) {
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(calendar.getTime());
+		
+		switch (validity) {
+			case VALIDITY_DAY:
+				calendar.add(Calendar.DAY_OF_MONTH, 1);
+				break;
+			case VALIDITY_MONTH:
+				calendar.add(Calendar.MONTH, 1);
+				break;
+			case VALIDITY_YEAR:
+				calendar.add(Calendar.YEAR, 1);
+				break;
+			default:
+				break;
+		}
+		
+		return new SimpleDate(calendar);
+	}
+	
+	public boolean isBefore(SimpleDate simpleDate) {
+		return calendar.before(simpleDate.calendar);
+	}
+
+	@Override
+	public String toString() {
+		return "SimpleDate [day=" + (day + 1) + ", month=" + (month + 1) + ", year=" + year + "]";
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+import homework.Vignette.Validity;
+
+
+public class GasStation {
+	
+	private final List<Vignette> vignettes = new ArrayList<Vignette>(10000);
+	private float turnover;
+	
+	public GasStation() {
+		this.turnover = 0.0f;
+		createVignettes();
+	}
+	
+	public float getTurnover() {
+		return turnover;
+	}
+	
+	public Vignette buyVignette(VehicleType vehicle, Validity validity) {
+		Iterator<Vignette> vignettesIterator = vignettes.iterator();
+		
+		while (vignettesIterator.hasNext()) {
+			Vignette next = vignettesIterator.next();
+			if (next.getVehicleType() == vehicle && next.getValidityType() == validity) {
+				vignettesIterator.remove();
+				turnover += next.getPrice();
+				next.setStartDate(new SimpleDate());
+				return next;
+			}
+		}
+		
+		return null;
+	}
+	
+	public Vignette[] getRemainingVignettes() {
+		return vignettes.toArray(new Vignette[vignettes.size()]);
+	}
+	
+	private void createVignettes() {
+		Random random = new Random();
+		
+		for (int i = 0; i < 10000; i++) {
+			vignettes.add(createRandomVignette(random));
+		}
+		
+		Collections.sort(vignettes, new Comparator<Vignette>() {
+			
+			public int compare(Vignette o1, Vignette o2) {
+				return Float.compare(o1.getPrice(), o2.getPrice());
+			}
+		});
+	}
+	
+	private static Vignette createRandomVignette(Random random) {
+		int vehicleType = random.nextInt(3);
+		
+		switch (vehicleType) {
+			case 0:
+				return new CarVignette(getRandomValidity(random));
+			case 1:
+				return new BusVignette(getRandomValidity(random));
+			case 2:
+				return new TruckVignette(getRandomValidity(random));
+			default:
+				return null;
+		}
+	}
+	
+	private static Validity getRandomValidity(Random random) {
+		int randomInt = random.nextInt(3);
+		
+		switch (randomInt) {
+			case 0:
+				return Validity.VALIDITY_DAY;
+			case 1:
+				return Validity.VALIDITY_MONTH;
+			case 2:
+				return Validity.VALIDITY_YEAR;
+			default:
+				return null;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "GasStation [vignettes=" + vignettes + ", turnover=" + turnover + "]";
+	}
+	
+	
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import homework.Vignette.Validity;
+
+public class Driver {
+	private final String name;
+	private final List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private float money;
+	private GasStation gasStation;
+
+	public Driver(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void addVehicle(Vehicle vehicle) {
+		vehicles.add(vehicle);
+	}
+	
+	public void setMoney(float money) {
+		this.money = money;
+	}
+	
+	public float getMoney() {
+		return money;
+	}
+	
+	public void setGasStation(GasStation gasStation) {
+		this.gasStation = gasStation;
+	}
+	
+	public void buyVignette(int vehicleNumber, Validity validity) {
+		if (gasStation != null && vehicleNumber >= 0 && vehicleNumber < vehicles.size()) {
+			Vehicle vehicle = vehicles.get(vehicleNumber);
+			Vignette vignette = gasStation.buyVignette(vehicle.getVehicleType(), validity);
+			
+			if (vignette != null) {
+				money -= vignette.getPrice();
+				vehicle.setVignette(vignette);
+			}
+		}
+	}
+	
+	public void buyVignettes(Validity validity) {
+		for (int i = 0; i < vehicles.size(); i++) {
+			buyVignette(i, validity);
+		}
+	}
+	
+	public Vehicle[] getVehiclesWithInvalidVignettes(int day, int month, int year) {
+		List<Vehicle> result = new LinkedList<Vehicle>();
+		Iterator<Vehicle> vehiclesIterator = vehicles.iterator();
+		
+		while (vehiclesIterator.hasNext()) {
+			Vehicle next = vehiclesIterator.next();
+			
+			if (!hasValidVignette(next, day, month, year)) {
+				result.add(next);
+			}
+		}
+		
+		return result.toArray(new Vehicle[result.size()]);
+ 	} 
+	
+	private boolean hasValidVignette(Vehicle vehicle, int day, int month, int year) {
+		Vignette vignette = vehicle.getVignette();
+		
+		if (vignette == null) {
+			return false;
+		}
+		
+		return vignette.isValid(new SimpleDate(day, month, year));
+	}
+
+	@Override
+	public String toString() {
+		return "Driver [name=" + name + ", vehicles=" + vehicles + ", money=" + money + "]";
+	}
+
+}
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+package homework;
+ import java.util.Array;
+ import java.util.Calendar;
+ import java.util.GregorianCalendar;
+ import java.util.Random;
+
+
+ 
+import homework.Vignette.Validity;
+ 
+ public class Test {
+		
+		private static final String[] CAR_MODELS = new String[] {
+			"Citroen", "Renault", "Peugeot", "Mercedes", "BMW", "Audi"
+		};
+		
+		private static final String[] BUS_MODELS = new String[] {
+			"Mercedes", "Ikarbus", "Scania"
+		};
+		
+		private static final String[] TRUCK_MODELS = new String[] {
+			"Mercedes", "MAN", "Iveco"
+		};
+
+		public static void main(String[] args) {
+			GasStation gasStation = new GasStation();
+			System.out.println(gasStation);
+
+			Random random = new Random();
+
+			Driver[] drivers = new Driver[20];
+			for (int i = 0; i < drivers.length; i++) {
+				drivers[i] = new Driver("Driver " + (i + 1));
+				drivers[i].setMoney(random.nextInt(5000) + 5000);
+				drivers[i].setGasStation(gasStation);
+			}
+
+			for (int i = 0; i < drivers.length; i++) {
+				for (int j = 0; j < 10; j++) {
+					drivers[i].addVehicle(createRandomVehicle(random));
+				}
+			}
+			
+			for (int i = 0; i < drivers.length; i++) {
+				if (i % 3 == 0) {
+					int[] randomIndexes = getRandomIndexes(random, 5, 10);
+					
+					for (int j = 0; j < randomIndexes.length; j++) {
+						drivers[i].buyVignette(randomIndexes[j], getRandomValidity(random));
+					}
+				} else {
+					drivers[i].buyVignettes(getRandomValidity(random));
+				}
+			}
+			
+			Calendar calendar = new GregorianCalendar();
+			
+			for (int i = 0; i < drivers.length; i++) {
+				System.out.println(drivers[i]);
+				System.out.println("vehicles with invalid vignette: " + 
+						drivers[i].getVehiclesWithInvalidVignettes(
+								calendar.get(Calendar.DAY_OF_MONTH) - 1, 
+								calendar.get(Calendar.MONTH),
+								calendar.get(Calendar.YEAR)));
+			}
+			
+			System.out.println(Array.list(gasStation.getRemainingVignettes()));
+			
+			for (int i = 0; i < drivers.length; i++) {
+				Vehicle[] vehiclesWithInvalidVignettes = drivers[i].getVehiclesWithInvalidVignettes(
+						calendar.get(Calendar.DAY_OF_MONTH) - 1, 
+						calendar.get(Calendar.MONTH),
+						calendar.get(Calendar.YEAR));
+				
+				for (int j = 0; j < vehiclesWithInvalidVignettes.length; j++) {
+					if (vehiclesWithInvalidVignettes[j].getVehicleType() == VehicleType.TRUCK) {
+						System.out.println(vehiclesWithInvalidVignettes[j]);
+					}
+				}
+			}
+		}
+
+		private static Vehicle createRandomVehicle(Random random) {
+			VehicleType randomVehicleType = getRandomVehicleType(random);
+			
+			switch (randomVehicleType) {
+				case CAR:
+					return new Car(CAR_MODELS[random.nextInt(CAR_MODELS.length)], 
+							generateRandomManufactureYear(random));
+				case BUS:
+					return new Bus(BUS_MODELS[random.nextInt(BUS_MODELS.length)], 
+							generateRandomManufactureYear(random));
+				case TRUCK:
+					return new Bus(TRUCK_MODELS[random.nextInt(TRUCK_MODELS.length)], 
+							generateRandomManufactureYear(random));
+				default:
+					return null;
+			}
+		}
+
+		private static int generateRandomManufactureYear(Random random) {
+			return 2015 - random.nextInt(10);
+		}
+
+		private static VehicleType getRandomVehicleType(Random random) {
+			int vehicleType = random.nextInt(3);
+
+			switch (vehicleType) {
+			case 0:
+				return VehicleType.CAR;
+			case 1:
+				return VehicleType.BUS;
+			case 2:
+				return VehicleType.TRUCK;
+			default:
+				return null;
+			}
+		}
+		
+		private static int[] getRandomIndexes(Random random, int number, int indexesCount) {
+			int[] indexes = new int[number];
+			int current = 0;
+			
+			for (int i = 0; i < number; i++) {
+				while (true) {
+					int nextInt = random.nextInt(indexesCount);
+					
+					if (!contains(indexes, nextInt)) {
+						indexes[current++] = nextInt;
+						break;
+					}
+				}
+			}
+			
+			return indexes;
+		} 
+		
+		private static boolean contains(int[] indexes, int index) {
+			for (int i = 0; i < indexes.length; i++) {
+				if (indexes[i] == index) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
+		private static Validity getRandomValidity(Random random) {
+			int randomInt = random.nextInt(3);
+			
+			switch (randomInt) {
+				case 0:
+					return Validity.VALIDITY_DAY;
+				case 1:
+					return Validity.VALIDITY_MONTH;
+				case 2:
+					return Validity.VALIDITY_YEAR;
+				default:
+					return null;
+			}
+		}
+	}
+
+

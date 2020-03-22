@@ -1,0 +1,37 @@
+package cicle;
+
+
+import java.util.Scanner;
+
+public class divisionWithoutResidue {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter tne number of nubers");
+		int number= sc.nextInt();
+	    int[] numbers= new int[number];
+	    int p1=0;
+	    int p2=0;
+	    int p3=0;
+	    
+	    for (int i = 0;i<number; i++){
+	    	System.out.println("Enter "+(i+1)+" number:");
+	    	numbers[i]=sc.nextInt();
+	    	if (numbers[i]%2==0)
+	    		p1++;
+	    	if(numbers[i]%3==0)
+	    		p2++;
+	    	if(numbers[i]%4==0)
+	    		p3++;
+	    }
+	    System.out.println((100/number)*p1);
+	    System.out.println((100/number)*p2);
+	    System.out.println((100/number)*p3);
+	    
+	}
+
+}
+

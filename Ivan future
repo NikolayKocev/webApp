@@ -1,0 +1,35 @@
+package cicle;
+
+import java.util.Scanner;
+
+public class Ps {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	Scanner sc= new Scanner(System.in);
+	System.out.println("Enter how mach money Ivan have:");
+	double ivanMoney= sc.nextDouble();
+	int yearsToLive;
+	do{
+	System.out.println("Enter yers until Ivan must live: ");
+	yearsToLive = sc.nextInt();
+	}
+	while(1800>yearsToLive && yearsToLive>1900);
+	for(int i=1800;i<yearsToLive;i++){
+		if (i%2==0)
+			ivanMoney-=12000;
+		else {
+			ivanMoney=ivanMoney-(12000+50*(i-1782));
+		}
+	}
+	if (ivanMoney>0)
+      System.out.println("Yes. He will live a carefree life and will have "+ivanMoney+ " dollars left");
+	else{
+		System.out.println("He will need "+ Math.abs(ivanMoney)+ " dollars to survive.");
+	}
+	}
+
+}
+
